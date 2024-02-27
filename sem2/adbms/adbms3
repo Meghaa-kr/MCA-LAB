@@ -1,0 +1,225 @@
+use employee;
+ create table emp(emp_id int primary key,emp_name varchar(20) not null,emp_add varchar(20) not null,emp_phone varchar(20) not null,dept_id varchar(20) not null,dep_name varchar(20) not null, salary varchar(20) not null);
+ 
+Query OK, 0 rows affected (0.85 sec)
+
+mysql> insert into emp values(1,'ramesh','gnoida','9855498465','0071','sales','65000');
+
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into emp values(2,'suresh','gnoida','9855498465','0072','sales','75000');
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(3,'rajesh','gnoida','9855498465','2324','sales','28000');
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(4,'shyamu','bsb','9855498490','8833','sales','35000');
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(5,'ramu','bsb','9895798490','8833','sales','96000');
+
+Query OK, 1 row affected (0.07 sec)
+
+mysql> select * from emp;
+
++--------+----------+---------+------------+---------+----------+--------+
+| emp_id | emp_name | emp_add | emp_phone  | dept_id | dep_name | salary |
++--------+----------+---------+------------+---------+----------+--------+
+|      1 | ramesh   | gnoida  | 9855498465 | 0071    | sales    | 65000  |
+|      2 | suresh   | gnoida  | 9855498465 | 0072    | sales    | 75000  |
+|      3 | rajesh   | gnoida  | 9855498465 | 2324    | sales    | 28000  |
+|      4 | shyamu   | bsb     | 9855498490 | 8833    | sales    | 35000  |
+|      5 | ramu     | bsb     | 9895798490 | 8833    | sales    | 96000  |
++--------+----------+---------+------------+---------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> delete from emp where emp_id=5;
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into emp values(5,'ramu','bsb','9895798490','74568','sales','96000');
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from emp;
+
++--------+----------+---------+------------+---------+----------+--------+
+| emp_id | emp_name | emp_add | emp_phone  | dept_id | dep_name | salary |
++--------+----------+---------+------------+---------+----------+--------+
+|      1 | ramesh   | gnoida  | 9855498465 | 0071    | sales    | 65000  |
+|      2 | suresh   | gnoida  | 9855498465 | 0072    | sales    | 75000  |
+|      3 | rajesh   | gnoida  | 9855498465 | 2324    | sales    | 28000  |
+|      4 | shyamu   | bsb     | 9855498490 | 8833    | sales    | 35000  |
+|      5 | ramu     | bsb     | 9895798490 | 74568   | sales    | 96000  |
++--------+----------+---------+------------+---------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> create user 'xyz' identified by 'all';
+
+Query OK, 0 rows affected (0.34 sec)
+
+mysql> show grants for xyz;
+
++---------------------------------+
+| Grants for xyz@%                |
++---------------------------------+
+| GRANT USAGE ON *.* TO `xyz`@`%` |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> grant all on employee to xyz;
+
+Query OK, 0 rows affected (0.06 sec)
+
+mysql> select * from emp;
+
++--------+----------+---------+------------+---------+----------+--------+
+| emp_id | emp_name | emp_add | emp_phone  | dept_id | dep_name | salary |
++--------+----------+---------+------------+---------+----------+--------+
+|      1 | ramesh   | gnoida  | 9855498465 | 0071    | sales    | 65000  |
+|      2 | suresh   | gnoida  | 9855498465 | 0072    | sales    | 75000  |
+|      3 | rajesh   | gnoida  | 9855498465 | 2324    | sales    | 28000  |
+|      4 | shyamu   | bsb     | 9855498490 | 8833    | sales    | 35000  |
+|      5 | ramu     | bsb     | 9895798490 | 74568   | sales    | 96000  |
++--------+----------+---------+------------+---------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> show grants for xyz;
+
++------------------------------------------------------------+
+| Grants for xyz@%                                           |
++------------------------------------------------------------+
+| GRANT USAGE ON *.* TO `xyz`@`%`                            |
+| GRANT ALL PRIVILEGES ON `employee`.`employee` TO `xyz`@`%` |
++------------------------------------------------------------+
+2 rows in set (0.00 sec)
+
+mysql> grant all on emp to xyz;
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> quit;
+
+Bye
+
+lab2@lab2-OptiPlex-380:~/Desktop$ sudo mysql -u xyz -p
+
+[sudo] password for lab2:
+ 
+Enter password:
+ 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+
+Your MySQL connection id is 13
+
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> select * from emp;
+
++--------+----------+---------+------------+---------+----------+--------+
+| emp_id | emp_name | emp_add | emp_phone  | dept_id | dep_name | salary |
++--------+----------+---------+------------+---------+----------+--------+
+|      1 | ramesh   | gnoida  | 9855498465 | 0071    | sales    | 65000  |
+|      2 | suresh   | gnoida  | 9855498465 | 0072    | sales    | 75000  |
+|      3 | rajesh   | gnoida  | 9855498465 | 2324    | sales    | 28000  |
+|      4 | shyamu   | bsb     | 9855498490 | 8833    | sales    | 35000  |
+|      5 | ramu     | bsb     | 9895798490 | 74568   | sales    | 96000  |
++--------+----------+---------+------------+---------+----------+--------+
+5 rows in set (0.00 sec)
+
+mysql> update emp set emp_name ='ramani' where emp_id=5;
+
+Query OK, 1 row affected (0.07 sec)
+
+Rows matched: 1  Changed: 1  Warnings: 0
+
+
+mysql> select * from emp;
+
++--------+----------+---------+------------+---------+----------+--------+
+| emp_id | emp_name | emp_add | emp_phone  | dept_id | dep_name | salary |
++--------+----------+---------+------------+---------+----------+--------+
+|      1 | ramesh   | gnoida  | 9855498465 | 0071    | sales    | 65000  |
+|      2 | suresh   | gnoida  | 9855498465 | 0072    | sales    | 75000  |
+|      3 | rajesh   | gnoida  | 9855498465 | 2324    | sales    | 28000  |
+|      4 | shyamu   | bsb     | 9855498490 | 8833    | sales    | 35000  |
+|      5 | ramani   | bsb     | 9895798490 | 74568   | sales    | 96000  |
++--------+----------+---------+------------+---------+----------+--------+
+5 rows in set (0.01 sec)
+
+mysql> quit;
+
+Bye
+
+lab2@lab2-OptiPlex-380:~/Desktop$ sudo mysql 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 14
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+mysql> revoke all on employee from xyz;
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> revoke all on emp from xyz;
+Query OK, 0 rows affected (0.05 sec)
+
+mysql> show grants for xyz;
++---------------------------------+
+| Grants for xyz@%                |
++---------------------------------+
+| GRANT USAGE ON *.* TO `xyz`@`%` |
++---------------------------------+
+1 row in set (0.00 sec)
+
+mysql> quit;
+Bye
+lab2@lab2-OptiPlex-380:~/Desktop$ sudo mysql -u xyz -p
+Enter password: 
+Welcome to the MySQL monitor.  Commands end with ; or \g.
+Your MySQL connection id is 15
+Server version: 8.0.36-0ubuntu0.20.04.1 (Ubuntu)
+
+Copyright (c) 2000, 2024, Oracle and/or its affiliates.
+
+Oracle is a registered trademark of Oracle Corporation and/or its
+affiliates. Other names may be trademarks of their respective
+owners.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+mysql> use employee;
+ERROR 1044 (42000): Access denied for user 'xyz'@'%' to database 'employee'
+mysql> 
+
+
