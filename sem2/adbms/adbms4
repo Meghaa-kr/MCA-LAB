@@ -1,0 +1,94 @@
+use tcl;
+
+Database changed
+
+mysql> create table student(roll_no int,name varchar(20),course varchar(20));
+
+Query OK, 0 rows affected (0.51 sec)
+
+mysql> insert into student values(1,'Ammu','Mca');
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> insert into student values(2,'amal','mca');
+
+Query OK, 1 row affected (0.09 sec)
+
+mysql> select * from student;
+
++---------+------+--------+
+| roll_no | name | course |
++---------+------+--------+
+|       1 | Ammu | Mca    |
+|       2 | amal | mca    |
++---------+------+--------+
+2 rows in set (0.01 sec)
+
+mysql> start transaction;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> savepoint a;
+
+Query OK, 0 rows affected (0.00 sec)
+
+mysql> insert into student values(4,'anet','Mca');
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(5,'Megha','Mca');
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> select * from student;
+
++---------+-------+--------+
+| roll_no | name  | course |
++---------+-------+--------+
+|       1 | Ammu  | Mca    |
+|       2 | amal  | mca    |
+|       4 | anet  | Mca    |
+|       5 | Megha | Mca    |
++---------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> rollback to a;
+
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from student;
+
++---------+------+--------+
+| roll_no | name | course |
++---------+------+--------+
+|       1 | Ammu | Mca    |
+|       2 | amal | mca    |
++---------+------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into student values(6,'Shany','Mca');
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> insert into student values(7,'Shanu','Mca');
+
+Query OK, 1 row affected (0.00 sec)
+
+mysql> commit;
+
+Query OK, 0 rows affected (0.07 sec)
+
+mysql> select * from student;
+
++---------+-------+--------+
+| roll_no | name  | course |
++---------+-------+--------+
+|       1 | Ammu  | Mca    |
+|       2 | amal  | mca    |
+|       6 | Shany | Mca    |
+|       7 | Shanu | Mca    |
++---------+-------+--------+
+4 rows in set (0.00 sec)
+
+mysql> 
+
