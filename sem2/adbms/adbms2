@@ -1,0 +1,107 @@
+mysql> create table employee(emp_id int,Name varchar(20),department int,salary int);
+Query OK, 0 rows affected (0.87 sec)
+
+mysql> create table department(dep_id int, dep_name varchar(20),dep_head varchar(20));
+Query OK, 0 rows affected (0.49 sec)
+
+mysql> insert into emplyee values(001,'megha',1,30000);
+
+mysql> insert into employee values(001,'megha',1,30000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(002,'manasi',2,40000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> select * from employee;
++--------+--------+------------+--------+
+| emp_id | Name   | department | salary |
++--------+--------+------------+--------+
+|      1 | megha  |          1 |  30000 |
+|      2 | manasi |          2 |  40000 |
++--------+--------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> insert into department values(1,'HR','RESHMA');
+Query OK, 1 row affected (0.06 sec)
+
+mysql> insert into department values(2,'design','boss');
+Query OK, 1 row affected (0.12 sec)
+
+mysql> select * from department;
++--------+----------+----------+
+| dep_id | dep_name | dep_head |
++--------+----------+----------+
+|      1 | HR       | RESHMA   |
+|      2 | design   | boss     |
++--------+----------+----------+
+2 rows in set (0.00 sec)
+
+mysql> alter table department add primary key(dep_id);
+Query OK, 0 rows affected (1.31 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table employee  add primary key(emp_id);
+Query OK, 0 rows affected (1.44 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int         | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| department | int         | YES  |     | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.06 sec)
+
+mysql> desc department;
++----------+-------------+------+-----+---------+-------+
+| Field    | Type        | Null | Key | Default | Extra |
++----------+-------------+------+-----+---------+-------+
+| dep_id   | int         | NO   | PRI | NULL    |       |
+| dep_name | varchar(20) | YES  |     | NULL    |       |
+| dep_head | varchar(20) | YES  |     | NULL    |       |
++----------+-------------+------+-----+---------+-------+
+3 rows in set (0.01 sec)
+
+mysql> alter table employee add foreign key(department) references department(dep_id);
+Query OK, 2 rows affected (1.94 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> desc employee;
++------------+-------------+------+-----+---------+-------+
+| Field      | Type        | Null | Key | Default | Extra |
++------------+-------------+------+-----+---------+-------+
+| emp_id     | int         | NO   | PRI | NULL    |       |
+| Name       | varchar(20) | YES  |     | NULL    |       |
+| department | int         | YES  | MUL | NULL    |       |
+| salary     | int         | YES  |     | NULL    |       |
++------------+-------------+------+-----+---------+-------+
+4 rows in set (0.01 sec)
+
+mysql> update employee set Name='krishna' where emp_id=1;
+Query OK, 1 row affected (0.10 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from employee;
++--------+---------+------------+--------+
+| emp_id | Name    | department | salary |
++--------+---------+------------+--------+
+|      1 | krishna |          1 |  30000 |
+|      2 | manasi  |          2 |  40000 |
++--------+---------+------------+--------+
+2 rows in set (0.00 sec)
+
+mysql> delete from employee where emp_id=2;
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee;
++--------+---------+------------+--------+
+| emp_id | Name    | department | salary |
++--------+---------+------------+--------+
+|      1 | krishna |          1 |  30000 |
++--------+---------+------------+--------+
+1 row in set (0.00 sec)
+
+
