@@ -1,0 +1,135 @@
+mysql> use tcl;
+
+Database changed
+
+mysql> create table employee(emp_id int,Name varchar(20),Gender varchar(20),department varchar(20),education varchar(20),moj varchar(20),salary int);
+
+Query OK, 0 rows affected (0.61 sec)
+
+mysql> insert into employee values(1001,'ajay','m','engineering','doctoral','january',25);
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(1002,'babloo','m','engineering','ug','february',23);
+
+Query OK, 1 row affected (0.10 sec)
+
+mysql> insert into employee values(1003,'chaavi','f','hr','pg','march',15);
+
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employee values(1004,'dheeraj','m','hr','ug','january',12);
+
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employee values(1005,'evina','f','marketing','ug','march',16);
+
+Query OK, 1 row affected (0.05 sec)
+
+mysql> select * from employee;
+
++--------+---------+--------+-------------+-----------+----------+--------+
+| emp_id | Name    | Gender | department  | education | moj      | salary |
++--------+---------+--------+-------------+-----------+----------+--------+
+|   1001 | ajay    | m      | engineering | doctoral  | january  |     25 |
+|   1002 | babloo  | m      | engineering | ug        | february |     23 |
+|   1003 | chaavi  | f      | hr          | pg        | march    |     15 |
+|   1004 | dheeraj | m      | hr          | ug        | january  |     12 |
+|   1005 | evina   | f      | marketing   | ug        | march    |     16 |
++--------+---------+--------+-------------+-----------+----------+--------+
+5 rows in set (0.02 sec)
+
+mysql> select department,SUM(salary) from employee group by department;
+
++-------------+-------------+
+| department  | SUM(salary) |
++-------------+-------------+
+| engineering |          48 |
+| hr          |          27 |
+| marketing   |          16 |
++-------------+-------------+
+3 rows in set (0.15 sec)
+
+mysql> select department,SUM(salary) from employee group by department having SUM(salary)>=20;
+
++-------------+-------------+
+| department  | SUM(salary) |
++-------------+-------------+
+| engineering |          48 |
+| hr          |          27 |
++-------------+-------------+
+2 rows in set (0.02 sec)
+
+mysql> select distinct department from employee;
+
++-------------+
+| department  |
++-------------+
+| engineering |
+| hr          |
+| marketing   |
++-------------+
+3 rows in set (0.00 sec)
+
+mysql> select count(salary) from employee;
+
++---------------+
+| count(salary) |
++---------------+
+|             5 |
++---------------+
+1 row in set (0.01 sec)
+
+mysql> select * from employee where department='engineering' and education='doctoral';
+
++--------+------+--------+-------------+-----------+---------+--------+
+| emp_id | Name | Gender | department  | education | moj     | salary |
++--------+------+--------+-------------+-----------+---------+--------+
+|   1001 | ajay | m      | engineering | doctoral  | january |     25 |
++--------+------+--------+-------------+-----------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select Name as first_name,education as qualification from employee;
+
++------------+---------------+
+| first_name | qualification |
++------------+---------------+
+| ajay       | doctoral      |
+| babloo     | ug            |
+| chaavi     | pg            |
+| dheeraj    | ug            |
+| evina      | ug            |
++------------+---------------+
+5 rows in set (0.01 sec)
+
+mysql> select * from employee where name like 'a%';
+
++--------+------+--------+-------------+-----------+---------+--------+
+| emp_id | Name | Gender | department  | education | moj     | salary |
++--------+------+--------+-------------+-----------+---------+--------+
+|   1001 | ajay | m      | engineering | doctoral  | january |     25 |
++--------+------+--------+-------------+-----------+---------+--------+
+1 row in set (0.00 sec)
+
+mysql> select department,sum(salary) from employee where education <> 'ug' group by department having sum(salary)>=20;
+
++-------------+-------------+
+| department  | sum(salary) |
++-------------+-------------+
+| engineering |          25 |
++-------------+-------------+
+1 row in set (0.00 sec)
+
+mysql> select department,sum(salary) from employee group by department having sum(salary)>=15 order by sum(salary) desc;
++-------------+-------------+
+| department  | sum(salary) |
++-------------+-------------+
+| engineering |          48 |
+| hr          |          27 |
+| marketing   |          16 |
++-------------+-------------+
+3 rows in set (0.00 sec)
+
+
+
+

@@ -1,0 +1,39 @@
+mysql> use nlp;
+Reading table information for completion of table and column names
+You can turn off this feature to get a quicker startup with -A
+
+Database changed
+
+mysql> delimiter //
+mysql> create procedure factorial(in a int)
+    -> begin
+    -> declare f int default 1;
+    -> while a > 0 do
+    -> set f = f * a;
+    -> set a = a - 1;
+    -> end while;
+    -> select concat('factorial=', f)as result;
+    -> end //
+Query OK, 0 rows affected (0.03 sec)
+
+mysql> delimiter ;
+mysql> call factorial(6);
++---------------+
+| result        |
++---------------+
+| factorial=720 |
++---------------+
+1 row in set (0.04 sec)
+
+Query OK, 0 rows affected (0.04 sec)
+
+ 
+
+
+
+
+
+
+
+
+

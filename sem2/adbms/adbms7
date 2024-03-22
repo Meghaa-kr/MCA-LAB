@@ -1,0 +1,66 @@
+use ttp;
+
+mysql> create table employees(emp_id int,emp_name varchar(20),emp_age int,city varchar(20),income int(50));
+Query OK, 0 rows affected, 1 warning (0.81 sec)
+
+mysql> insert into employees values(101,'peter',32,'newyork',200000);
+Query OK, 1 row affected (0.08 sec)
+
+mysql> insert into employees values(102,'mark',32,'california',300000);
+Query OK, 1 row affected (0.11 sec)
+
+mysql> insert into employees values(103,'donald',40,'arizona',1000000);
+Query OK, 1 row affected (0.07 sec)
+
+mysql> insert into employees values(104,'obama',35,'florida',5000000);
+Query OK, 1 row affected (0.12 sec)
+
+mysql> insert into employees values(105,'linklon',32,'georgia',250000);
+Query OK, 1 row affected (0.06 sec)
+
+mysql> select * from employees;
+
++--------+----------+---------+------------+---------+
+| emp_id | emp_name | emp_age | city       | income  |
++--------+----------+---------+------------+---------+
+|    101 | peter    |      32 | newyork    |  200000 |
+|    102 | mark     |      32 | california |  300000 |
+|    103 | donald   |      40 | arizona    | 1000000 |
+|    104 | obama    |      35 | florida    | 5000000 |
+|    105 | linklon  |      32 | georgia    |  250000 |
++--------+----------+---------+------------+---------+
+
+mysql> select emp_name,city,income from employees where emp_id in(select emp_id from employees);
+
++----------+------------+---------+
+| emp_name | city       | income  |
++----------+------------+---------+
+| peter    | newyork    |  200000 |
+| mark     | california |  300000 |
+| donald   | arizona    | 1000000 |
+| obama    | florida    | 5000000 |
+| linklon  | georgia    |  250000 |
++----------+------------+---------+
+
+mysql> select * from employees where emp_id in(select emp_id from employees where income>350000);
+
++--------+----------+---------+---------+---------+
+| emp_id | emp_name | emp_age | city    | income  |
++--------+----------+---------+---------+---------+
+|    103 | donald   |      40 | arizona | 1000000 |
+|    104 | obama    |      35 | florida | 5000000 |
++--------+----------+---------+---------+---------+
+2 rows in set (0.00 sec)
+
+mysql> select emp_name,city,income from employees where income=(select max(income) from employees);
+
++----------+---------+---------+
+| emp_name | city    | income  |
++----------+---------+---------+
+| obama    | florida | 5000000 |
++----------+---------+---------+
+1 row in set (0.00 sec)
+
+mysql> 
+
+

@@ -1,0 +1,33 @@
+mysql> create database nlp;
+Query OK, 1 row affected (0.16 sec)
+
+mysql> use nlp;
+
+Database changed
+
+mysql> delimiter //
+
+mysql> create procedure display()
+    -> begin
+    -> select * from student;
+    -> end
+    -> //
+Query OK, 0 rows affected (0.30 sec)
+
+mysql> delimiter;
+    -> call display();
+    -> ^C
+mysql> delimiter ;
+mysql> call display();
++--------+----------+------+
+| std_id | std_name | age  |
++--------+----------+------+
+|     10 | megha    |   22 |
+|     10 | manasi   |   21 |
++--------+----------+------+
+2 rows in set (0.02 sec)
+
+Query OK, 0 rows affected (0.02 sec)
+
+
+
